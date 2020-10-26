@@ -18,10 +18,10 @@ namespace MathForGames
         /// <param name="icon">The symbol that will appear when drawn</param>
         /// <param name="color">The color of the symbol that will appear when drawn</param>
         public Goal(float x, float y, Actor player, char icon = ' ', ConsoleColor color = ConsoleColor.White)
-            : base(x, y, icon, color)
+            : base((char)x, y, icon, color)
         {
             _player = player;
-        }
+        } //Goal Constructor
 
         /// <param name="x">Position on the x axis</param>
         /// <param name="y">Position on the y axis</param>
@@ -32,7 +32,7 @@ namespace MathForGames
             : base(x, y, rayColor, icon, color)
         {
             _player = player;
-        }
+        } //Overload Constructor
 
         /// <summary>
         /// Checks to see if the player is in range of the goal.
@@ -42,7 +42,7 @@ namespace MathForGames
         {
             float distance = (_player.Position - Position).Magnitude;
             return distance <= 1;
-        }
+        } //Check PlayerDistance function
 
         public override void Update(float deltaTime)
         {
@@ -51,6 +51,6 @@ namespace MathForGames
                 Game.SetGameOver(true);
 
             base.Update(deltaTime);
-        }
-    }
-}
+        } //Update
+    } //Goal
+} //Math For Games

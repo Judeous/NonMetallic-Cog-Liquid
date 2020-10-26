@@ -12,8 +12,8 @@ namespace MathForGames
 
         public Scene()
         {
-
-        }
+            _actors = new Actor[0];
+        } //Scene constructor
 
         public void AddActor(Actor actor)
         {
@@ -28,7 +28,7 @@ namespace MathForGames
             appendedArray[_actors.Length] = actor;
             //Set old array to hold the values of the new array
             _actors = appendedArray;
-        }
+        } //Add Actor function
 
         public bool RemoveActor(int index)
         {
@@ -65,7 +65,7 @@ namespace MathForGames
             //Set the old array to be the tempArray
             _actors = newArray;
             return actorRemoved;
-        }
+        } //Remove Actor by index
 
         public bool RemoveActor(Actor actor)
         {
@@ -100,12 +100,12 @@ namespace MathForGames
             _actors = newArray;
             //Return whether or not the removal was successful
             return actorRemoved;
-        }
+        } //Remove Actor by Actor
 
         public virtual void Start()
         {
             Started = true;
-        }
+        } //Start
 
         public virtual void Update(float deltaTime)
         {
@@ -116,7 +116,7 @@ namespace MathForGames
 
                 _actors[i].Update(deltaTime);
             }
-        }
+        } //Update
 
         public virtual void Draw()
         {
@@ -124,7 +124,7 @@ namespace MathForGames
             {
                 _actors[i].Draw();
             }
-        }
+        } //Draw
 
         public virtual void End()
         {
@@ -135,6 +135,6 @@ namespace MathForGames
             }
 
             Started = false;
-        }
-    }
-}
+        } //End
+    } //Scene
+} //Math For Games

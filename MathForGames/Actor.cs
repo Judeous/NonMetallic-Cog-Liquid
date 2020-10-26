@@ -25,39 +25,25 @@ namespace MathForGames
         {
             get { return _facing; }
             set { _facing = value; }
-        }
-
+        } //Forward property
 
         public Vector2 Position
         {
-            get
-            {
-                return _position;
-            }
-            set
-            {
-                _position = value;
-            }
-        }
+            get { return _position; }
+            set { _position = value; }
+        } //Position property
 
         public Vector2 Velocity
         {
-            get
-            {
-                return _velocity;
-            }
-            set
-            {
-                _velocity = value;
-            }
-        }
-
+            get { return _velocity; }
+            set { _velocity = value; }
+        } //Velocity property
 
         /// <param name="x">Position on the x axis</param>
         /// <param name="y">Position on the y axis</param>
         /// <param name="icon">The symbol that will appear when drawn</param>
         /// <param name="color">The color of the symbol that will appear when drawn</param>
-        public Actor(char icon = ' ', float y, float x, ConsoleColor color = ConsoleColor.White)
+        public Actor(float y, float x, char icon = ' ', ConsoleColor color = ConsoleColor.White)
         {
             _rayColor = Color.WHITE;
             _icon = icon;
@@ -65,8 +51,7 @@ namespace MathForGames
             _velocity = new Vector2();
             _color = color;
             Forward = new Vector2(1, 0);
-        }
-
+        } //Actor Constructor
 
         /// <param name="x">Position on the x axis</param>
         /// <param name="y">Position on the y axis</param>
@@ -74,10 +59,10 @@ namespace MathForGames
         /// <param name="icon">The symbol that will appear when drawn</param>
         /// <param name="color">The color of the symbol that will appear when drawn to the console</param>
         public Actor(float x, float y, Color rayColor, char icon = ' ', ConsoleColor color = ConsoleColor.White)
-            : this(x,y,icon,color)
+            : this((char)x, y, icon, color)
         {
             _rayColor = rayColor;
-        }
+        } //Overload Constructor with Raylib
 
         /// <summary>
         /// Updates the actors forward vector to be
@@ -89,13 +74,12 @@ namespace MathForGames
                 return;
 
             Forward = Velocity.Normalized;
-        }
+        } //Update Facing function
 
         public virtual void Start()
         {
             Started = true;
-        }
-
+        } //Start
         
         public virtual void Update(float deltaTime)
         {
@@ -103,21 +87,24 @@ namespace MathForGames
             UpdateFacing();
 
             //Increase position by the current velocity
-            _position += _velocity;
-        }
+            _position += _velocity * deltaTime;
+
+            //Makes sure position stays within bounds
+            _position.X = Math.Clamp(_position.X, 0, Console.WindowWidth - 1);
+            _position.Y = Math.Clamp(_position.Y, 0, Console.WindowHeight - 1);
+        } //Update
 
         public virtual void Draw()
         {
             //Draws the actor and a line indicating it facing to the raylib window.
             //Scaled to match console movement
-            Raylib.DrawText(_icon.ToString(), (int)_position.X * 32, (int)(_position.Y * 32), 32, _rayColor);
+            Raylib.DrawText(_icon.ToString(), (int)(_position.X * 32), (int)(_position.Y * 32), 32, _rayColor);
             Raylib.DrawLine(
-                (int)Position.X * 32,
+                (int)(Position.X * 32),
                 (int)(Position.Y * 32),
                 (int)((Position.X + Forward.X) * 32),
                 (int)((Position.Y + Forward.Y) * 32),
-                Color.WHITE
-            );
+                Color.WHITE);
 
             //Changes the color of the console text to be this actors color
             Console.ForegroundColor = _color;
@@ -132,12 +119,11 @@ namespace MathForGames
             
             //Reset console text color to be default color
             Console.ForegroundColor = Game.DefaultColor;
-        }
+        } //Draw
 
         public virtual void End()
         {
             Started = false;
-        }
-
-    }
-}
+        } //End
+    } //Actor
+} //Math For Games

@@ -9,57 +9,37 @@ namespace MathLibrary
 
         public float X
         {
-            get
-            {
-                return _x;
-            }
-            set
-            {
-                _x = value;
-            }
-        }
+            get { return _x; }
+            set { _x = value; }
+        } //X property
 
         public float Y
         {
-            get
-            {
-                return _y;
-            }
-            set
-            {
-                _y = value;
-            }
-        }
+            get { return _y; }
+            set { _y = value; }
+        } //Y property
 
         public float Magnitude
         {
-            get
-            {
-                
-            }
-        }
+            get { return (float)Math.Sqrt(X * X + Y * Y); }
+        } //Magnitude Property
 
         public Vector2 Normalized
         {
-            get
-            {
-                return Normalize(this);
-            }
-        }
-
-        
+            get { return Normalize(this); }
+        } //Normalized Property
 
         public Vector2()
         {
             _x = 0;
             _y = 0;
-        }
+        } //Constructor
 
         public Vector2(float x, float y)
         {
             _x = x;
             _y = y;
-        }
+        } //Overload Constructor
 
         /// <summary>
         /// Returns the normalized version of a the vector passed in.
@@ -68,8 +48,10 @@ namespace MathLibrary
         /// <returns></returns>
         public static Vector2 Normalize(Vector2 vector)
         {
-            
-        }
+            if (vector.Magnitude == 0)
+                return new Vector2();
+            return vector / vector.Magnitude;
+        } //Normalize function
 
         /// <summary>
         /// Returns the dot product of the two vectors given.
@@ -79,30 +61,27 @@ namespace MathLibrary
         /// <returns></returns>
         public static float DotProduct(Vector2 lhs, Vector2 rhs)
         {
-            
-        }
+            return (lhs.X * rhs.X) + (lhs.Y * rhs.Y);
+        } //Dot Product function
 
         public static Vector2 operator +(Vector2 lhs, Vector2 rhs)
         {
             return new Vector2(lhs.X += rhs.X, lhs.Y += rhs.Y);
-        }
+        } //Addition overload
 
         public static Vector2 operator -(Vector2 lhs, Vector2 rhs)
         {
             return new Vector2(lhs.X - rhs.X, lhs.Y - rhs.Y);
-        }
+        } //Subtraction overload
 
         public static Vector2 operator *(Vector2 lhs, float scalar)
         {
-            
-        }
+            return new Vector2(lhs.X * scalar, lhs.Y * scalar);
+        } //Multiplication overload
 
         public static Vector2 operator /(Vector2 lhs, float scalar)
         {
             return new Vector2(lhs.X / scalar, lhs.Y / scalar);
-        }
-
-
-
-    }
-}
+        } //Division overload
+    } //Vector 2
+} //Math For Games
