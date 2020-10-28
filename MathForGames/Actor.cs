@@ -14,23 +14,23 @@ namespace MathForGames
     class Actor
     {
         protected char _icon = ' ';
-        protected Vector2 _position;
-        protected Vector2 _velocity;
-        private Vector2 _facing;
         protected ConsoleColor _color;
         protected Color _rayColor;
-        public bool Started { get; private set; }
+        protected Matrix3 _transform;
+        protected Vector2 _velocity;
+
+        public bool Started { get; private set; } //Started property
 
         public Vector2 Forward
         {
-            get { return _facing; }
-            set { _facing = value; }
+            get { return new Vector2(_transform.m11, _transform.m22); }
+            set { _transform.m11 = value.X;   _transform.m22 = value.Y; }
         } //Forward property
 
         public Vector2 Position
         {
-            get { return _position; }
-            set { _position = value; }
+            get { return new Vector2(_transform.m31, _transform.m32); }
+            set { _transform.m31 = value.X; _transform.m32 = value.Y; }
         } //Position property
 
         public Vector2 Velocity
@@ -47,9 +47,10 @@ namespace MathForGames
         {
             _rayColor = Color.WHITE;
             _icon = icon;
-            _position = new Vector2(x, y);
-            _velocity = new Vector2();
             _color = color;
+            _transform = new Matrix3();
+            Position = new Vector2(x, y);
+            Velocity = new Vector2();
             Forward = new Vector2(1, 0);
         } //Actor Constructor
 
@@ -70,7 +71,7 @@ namespace MathForGames
         /// </summary>
         private void UpdateFacing()
         {
-            if (_velocity.Magnitude <= 0)
+            if (Velocity.Magnitude <= 0)
                 return;
 
             Forward = Velocity.Normalized;
@@ -87,18 +88,18 @@ namespace MathForGames
             UpdateFacing();
 
             //Increase position by the current velocity
-            _position += _velocity * deltaTime;
+            Position += Velocity * deltaTime;
 
             //Makes sure position stays within bounds
-            _position.X = Math.Clamp(_position.X, 0, Console.WindowWidth - 1);
-            _position.Y = Math.Clamp(_position.Y, 0, Console.WindowHeight - 1);
+            _transform.m31 = Math.Clamp(_transform.m31, 0, Raylib.GetScreenWidth()/32 - 1);
+            _transform.m32 = Math.Clamp(_transform.m32, 0, Raylib.GetScreenHeight()/32 - 1);
         } //Update
 
         public virtual void Draw()
         {
             //Draws the actor and a line indicating it facing to the raylib window.
             //Scaled to match console movement
-            Raylib.DrawText(_icon.ToString(), (int)(_position.X * 32), (int)(_position.Y * 32), 32, _rayColor);
+            Raylib.DrawText(_icon.ToString(), (int)(Position.X * 32), (int)(Position.Y * 32), 32, _rayColor);
             Raylib.DrawLine(
                 (int)(Position.X * 32),
                 (int)(Position.Y * 32),
@@ -113,7 +114,7 @@ namespace MathForGames
             if(Position.X >= 0 && Position.X < Console.WindowWidth 
                 && Position.Y >= 0  && Position.Y < Console.WindowHeight)
             {
-                Console.SetCursorPosition((int)_position.X, (int)_position.Y);
+                Console.SetCursorPosition((int)Position.X, (int)Position.Y);
                 Console.Write(_icon);
             }
             
