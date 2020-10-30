@@ -10,14 +10,31 @@ namespace MathForGames
     /// <summary>
     /// This is the base class for all objects that will 
     /// be moved or interacted with in the game
+    /// 
+    /// Create new matrices to transform the actors matrix. The user should be able to translate, rotate, and scale the actor.
     /// </summary>
     class Actor
     {
         protected char _icon = ' ';
         protected ConsoleColor _color;
         protected Color _rayColor;
-        protected Matrix3 _transform;
         protected Vector2 _velocity;
+
+        protected Matrix3 _transform = new Matrix3(1, 0, 0,
+                                                   0, 1, 0,
+                                                   0, 0, 1);
+
+        protected Matrix3 _translationMatrix = new Matrix3(1, 0, 0,
+                                                           0, 1, 0,
+                                                           0, 0, 1);
+
+        protected Matrix3 _rotationMatrix = new Matrix3(1, 0, 0,
+                                                        0, 1, 0,
+                                                        0, 0, 1);
+
+        protected Matrix3 _scaleMatrix = new Matrix3(1, 0, 0,
+                                                     0, 1, 0,
+                                                     0, 0, 1);
 
         public bool Started { get; private set; } //Started property
 
@@ -74,8 +91,27 @@ namespace MathForGames
             if (Velocity.Magnitude <= 0)
                 return;
 
+
             Forward = Velocity.Normalized;
         } //Update Facing function
+
+        private void Scale(Matrix3 scale)
+        {
+            if (scale != null)
+            {
+                _translationMatrix = scale;
+                _transform += _translationMatrix;
+            } //If passed in scale isn't null
+        } //Scale function
+
+        private void Rotate(Matrix3 rotation)
+        {
+            if(rotation != null)
+            {
+                _rotationMatrix = rotation;
+                _transform *= _rotationMatrix;
+            } //If passed in rotation isn't null
+        } //Rotate function
 
         public virtual void Start()
         {

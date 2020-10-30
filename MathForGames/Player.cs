@@ -12,6 +12,7 @@ namespace MathForGames
     class Player : Actor
     {
         private float _speed = 1;
+        private Sprite _sprite = new Sprite("Images/player.png");
 
         public float Speed
         {
@@ -50,5 +51,11 @@ namespace MathForGames
             
             base.Update(deltaTime);
         } //Update override
+
+        public override void Draw()
+        {
+            _sprite.Draw(_transform);
+            base.Draw();
+        } //Draw override
     } //Player
 } //Math For Games
