@@ -18,23 +18,14 @@ namespace MathForGames
         protected char _icon = ' ';
         protected ConsoleColor _color;
         protected Color _rayColor;
+        protected Sprite _sprite;
+
         protected Vector2 _velocity;
 
-        protected Matrix3 _transform = new Matrix3(1, 0, 0,
-                                                   0, 1, 0,
-                                                   0, 0, 1);
-
-        protected Matrix3 _translationMatrix = new Matrix3(1, 0, 0,
-                                                           0, 1, 0,
-                                                           0, 0, 1);
-
-        protected Matrix3 _rotationMatrix = new Matrix3(1, 0, 0,
-                                                        0, 1, 0,
-                                                        0, 0, 1);
-
-        protected Matrix3 _scaleMatrix = new Matrix3(1, 0, 0,
-                                                     0, 1, 0,
-                                                     0, 0, 1);
+        protected Matrix3 _transform = new Matrix3();
+        protected Matrix3 _translation = new Matrix3();
+        protected Matrix3 _rotation = new Matrix3();
+        protected Matrix3 _scale = new Matrix3();
 
         public bool Started { get; private set; } //Started property
 
@@ -46,8 +37,8 @@ namespace MathForGames
 
         public Vector2 Position
         {
-            get { return new Vector2(_transform.m31, _transform.m32); }
-            set { _transform.m31 = value.X; _transform.m32 = value.Y; }
+            get { return new Vector2(_translation.m31, _translation.m32); }
+            set { _translation.m31 = value.X; _translation.m32 = value.Y; }
         } //Position property
 
         public Vector2 Velocity
@@ -86,32 +77,17 @@ namespace MathForGames
         /// Updates the actors forward vector to be
         /// the last direction it moved in
         /// </summary>
-        private void UpdateFacing()
+        private void UpdateFacing() 
         {
             if (Velocity.Magnitude <= 0)
+            {
+                SetRotation(Forward.Magnitude);
                 return;
-
+            }
 
             Forward = Velocity.Normalized;
+            SetRotation(Forward.Magnitude);
         } //Update Facing function
-
-        private void Scale(Matrix3 scale)
-        {
-            if (scale != null)
-            {
-                _translationMatrix = scale;
-                _transform += _translationMatrix;
-            } //If passed in scale isn't null
-        } //Scale function
-
-        private void Rotate(Matrix3 rotation)
-        {
-            if(rotation != null)
-            {
-                _rotationMatrix = rotation;
-                _transform *= _rotationMatrix;
-            } //If passed in rotation isn't null
-        } //Rotate function
 
         public virtual void Start()
         {
@@ -126,6 +102,9 @@ namespace MathForGames
             //Increase position by the current velocity
             Position += Velocity * deltaTime;
 
+            SetTranslate(Position);
+            UpdateTransform();
+
             //Makes sure position stays within bounds
             _transform.m31 = Math.Clamp(_transform.m31, 0, Raylib.GetScreenWidth()/32 - 1);
             _transform.m32 = Math.Clamp(_transform.m32, 0, Raylib.GetScreenHeight()/32 - 1);
@@ -133,6 +112,9 @@ namespace MathForGames
 
         public virtual void Draw()
         {
+            if(_sprite != null)
+                _sprite.Draw(_transform);
+
             //Draws the actor and a line indicating it facing to the raylib window.
             //Scaled to match console movement
             Raylib.DrawText(_icon.ToString(), (int)(Position.X * 32), (int)(Position.Y * 32), 32, _rayColor);
@@ -162,5 +144,30 @@ namespace MathForGames
         {
             Started = false;
         } //End
+
+        public void SetTranslate(Vector2 position) 
+        {
+            _translation.m31 = position.X;
+            _translation.m32 = position.Y;
+        } //Set Translate function
+
+        public void SetRotation(float radians)
+        {
+            _rotation.m11 = (float)(Math.Cos(radians));
+            _rotation.m12 = (float)(Math.Sin(radians));
+            _rotation.m21 = (float)(-1*Math.Sin(radians));
+            _rotation.m22 = (float)(Math.Cos(radians));
+        } //Set Rotation function
+
+        public void SetScale(float scalar)
+        {
+            _scale.m11 = scalar;
+            _scale.m22 = scalar;
+        } //Set Scale function
+
+        private void UpdateTransform()
+        {
+            _transform += _translation + _rotation + _scale;
+        } //Update Transform function
     } //Actor
 } //Math For Games

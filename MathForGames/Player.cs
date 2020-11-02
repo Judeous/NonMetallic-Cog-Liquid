@@ -12,7 +12,6 @@ namespace MathForGames
     class Player : Actor
     {
         private float _speed = 1;
-        private Sprite _sprite = new Sprite("Images/player.png");
 
         public float Speed
         {
@@ -35,7 +34,9 @@ namespace MathForGames
         /// <param name="color">The color of the symbol that will appear when drawn to the console</param>
         public Player(float x, float y, Color rayColor, char icon = ' ', ConsoleColor color = ConsoleColor.White)
             : base(x, y, rayColor, icon, color)
-        { }
+        {
+            _sprite = new Sprite("Images/player.png");
+        }
 
         public override void Update(float deltaTime)
         {
@@ -45,17 +46,17 @@ namespace MathForGames
             int yDirection = -Convert.ToInt32(Game.GetKeyDown((int)KeyboardKey.KEY_W))
                 + Convert.ToInt32(Game.GetKeyDown((int)KeyboardKey.KEY_S));
 
+            if ((Game.GetKeyDown((int)KeyboardKey.KEY_UP)))
+                SetScale(_scale.m11 + 1);
+
+            if ((Game.GetKeyDown((int)KeyboardKey.KEY_DOWN)))
+                SetScale(_scale.m11 - 1);
+
             //Set the actors current velocity to be the a vector with the direction found scaled by the speed
             Velocity = new Vector2(xDirection, yDirection);
             Velocity = Velocity.Normalized * Speed;
             
             base.Update(deltaTime);
         } //Update override
-
-        public override void Draw()
-        {
-            _sprite.Draw(_transform);
-            base.Draw();
-        } //Draw override
     } //Player
 } //Math For Games
