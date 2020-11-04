@@ -145,6 +145,8 @@ namespace MathForGames
         
         public virtual void Update(float deltaTime)
         {
+            SetRotation(-(float)Math.Atan2(Velocity.Y, Velocity.X));
+
             UpdateLocalTransform();
             UpdateGlobalTransform();
 
@@ -207,15 +209,12 @@ namespace MathForGames
             _scale.m22 = y;
         } //Set Scale function
 
-        private void UpdateLocalTransform()
+        public void UpdateLocalTransform()
         {
-            SetRotation(-(float)Math.Atan2(Velocity.Y, Velocity.X));
-
             _localTransform = _translation * _rotation * _scale;
-
         } //Update Transform function
 
-        private void UpdateGlobalTransform()
+        public void UpdateGlobalTransform()
         {
             if (_parent != null)
                 _globalTransform = _parent._globalTransform * _localTransform;

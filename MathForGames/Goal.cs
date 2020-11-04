@@ -47,14 +47,18 @@ namespace MathForGames
 
         public override void Update(float deltaTime)
         {
-            _rotate += .5f;
+            _rotate += .1f;
             SetRotation(_rotate);
 
             //If the player is in range of the goal, end the game
             if (CheckPlayerDistance())
                 Game.SetGameOver(true);
 
-            base.Update(deltaTime);
+            UpdateLocalTransform();
+            UpdateGlobalTransform();
+
+            //Increase position by the current velocity
+            LocalPosition += Velocity * deltaTime;
         } //Update
     } //Goal
 } //Math For Games
