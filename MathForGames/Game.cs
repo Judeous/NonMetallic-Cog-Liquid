@@ -184,33 +184,38 @@ namespace MathForGames
             Scene scene2 = new Scene();
 
             //Create the actors to add to our scene
-            Enemy enemyHigh = new Enemy(0, 5, Color.GREEN, new Vector2(0,5), new Vector2(30, 5), '■', ConsoleColor.Green);
-            Enemy enemyMid = new Enemy(10, 10, Color.GREEN, new Vector2(0, 10), new Vector2(30, 10), '■', ConsoleColor.Green);
-            Enemy enemyLow = new Enemy(3, 20, Color.GREEN, new Vector2(0, 20), new Vector2(30, 20), '■', ConsoleColor.Green);
+            Enemy enemy1 = new Enemy(2, 5, Color.GREEN, new Vector2(0,5), new Vector2(30, 5), '■', ConsoleColor.Green);
+            Enemy enemy2 = new Enemy(10, 10, Color.GREEN, new Vector2(0, 10), new Vector2(30, 10), '■', ConsoleColor.Green);
+            Enemy enemy3 = new Enemy(3, 20, Color.GREEN, new Vector2(0, 20), new Vector2(30, 20), '■', ConsoleColor.Green);
             Player player = new Player(0, 1, Color.BLUE, '@', ConsoleColor.Red);
-            Goal goal = new Goal(20, 25, Color.GREEN, player, 'G', ConsoleColor.Green);
+            Goal goal = new Goal(11, 15, Color.GREEN, player, 'G', ConsoleColor.Green);
 
             //Initialize the enemies' starting values
-            enemyHigh.Speed = 2;
-            enemyMid.Speed = 2;
-            enemyLow.Speed = 2;
+            enemy1.Speed = 2;
+            enemy2.Speed = 2;
+            enemy3.Speed = 2;
 
             //Set player's starting speed
             player.Speed = 5;
 
+            player.SetTranslate(new Vector2(10, 10));
+            goal.AddChild(enemy1);
+            goal.AddChild(enemy2);
+            goal.AddChild(enemy3);
+
             //Add actors to the scenes
             scene1.AddActor(player);
-            scene1.AddActor(enemyHigh);
-            scene1.AddActor(enemyMid);
-            scene1.AddActor(enemyLow);
+            scene1.AddActor(enemy1);
+            scene1.AddActor(enemy2);
+            scene1.AddActor(enemy3);
             scene1.AddActor(goal);
             scene2.AddActor(player);
             scene2.AddActor(goal);
             
             //Sets the targets of the enemies to be the Player
-            enemyHigh.Target = player;
-            enemyMid.Target = player;
-            enemyLow.Target = player;
+            enemy1.Target = player;
+            enemy2.Target = player;
+            enemy3.Target = player;
 
             //Sets the starting scene index and adds the scenes to the scenes array
             int startingSceneIndex = 0;

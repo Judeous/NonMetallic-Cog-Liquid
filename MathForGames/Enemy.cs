@@ -88,7 +88,7 @@ namespace MathForGames
                 return true;
 
             //Find the vector representing the distance between the actor and its target
-            Vector2 direction = Target.Position - Position;
+            Vector2 direction = Target.LocalPosition - LocalPosition;
             //Get the magnitude of the distance vector
             float distance = direction.Magnitude;
             //Use the inverse cosine to find the angle of the dot product in radians
@@ -108,7 +108,7 @@ namespace MathForGames
         private void UpdatePatrolLocation()
         {
             //Calculate the distance between the current patrol point and the current position
-            Vector2 direction = _currentPoint - Position;
+            Vector2 direction = _currentPoint - LocalPosition;
             float distance = direction.Magnitude;
 
             //Switch to the new patrol point if the enemy is within distance of the current one
@@ -118,7 +118,7 @@ namespace MathForGames
                 _currentPoint = PatrolPointA;
 
             //Calcute new velocity to travel to the next waypoint
-            direction = _currentPoint - Position;
+            direction = _currentPoint - LocalPosition;
             Velocity = direction.Normalized * Speed;
         } //Update Patrol location function
 
@@ -129,12 +129,12 @@ namespace MathForGames
             if(CheckTargetInSight(0.75f, 5))
             {
                 _rayColor = Color.RED;
-                Target.Position = new Vector2();
+                //Target.LocalPosition = new Vector2();
             }
             else
                 _rayColor = Color.BLUE;
 
-            UpdatePatrolLocation();
+            //UpdatePatrolLocation();
             base.Update(deltaTime);
         } //Update
     } //Enemy

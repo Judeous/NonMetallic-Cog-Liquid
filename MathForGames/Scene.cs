@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MathLibrary;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,8 +8,14 @@ namespace MathForGames
     class Scene
     {
         private Actor[] _actors;
+        private Matrix3 _transform = new Matrix3();
 
         public bool Started { get; private set; }
+
+        public Matrix3 World
+        {
+            get { return _transform; }
+        } //Transform property
 
         public Scene()
         {

@@ -12,6 +12,7 @@ namespace MathForGames
     class Goal : Actor
     {
         private Actor _player;
+        private float _rotate = 0;
 
         /// <param name="x">Position on the x axis</param>
         /// <param name="y">Position on the y axis</param>
@@ -40,12 +41,15 @@ namespace MathForGames
         /// <returns></returns>
         private bool CheckPlayerDistance()
         {
-            float distance = (_player.Position - Position).Magnitude;
+            float distance = (_player.LocalPosition - LocalPosition).Magnitude;
             return distance <= 1;
         } //Check PlayerDistance function
 
         public override void Update(float deltaTime)
         {
+            _rotate += .5f;
+            SetRotation(_rotate);
+
             //If the player is in range of the goal, end the game
             if (CheckPlayerDistance())
                 Game.SetGameOver(true);
