@@ -41,18 +41,14 @@ namespace MathForGames
         /// <returns></returns>
         private bool CheckPlayerDistance()
         {
-            float distance = (_player.LocalPosition - LocalPosition).Magnitude;
+            float distance = (_player.GlobalPosition - GlobalPosition).Magnitude;
             return distance <= 1;
         } //Check PlayerDistance function
 
         public override void Update(float deltaTime)
         {
             _rotate += .1f;
-            SetRotation(_rotate);
-
-            //If the player is in range of the goal, end the game
-            if (CheckPlayerDistance())
-                Game.SetGameOver(true);
+            //SetRotation(_rotate);
 
             UpdateLocalTransform();
             UpdateGlobalTransform();
@@ -60,5 +56,13 @@ namespace MathForGames
             //Increase position by the current velocity
             LocalPosition += Velocity * deltaTime;
         } //Update
+
+        public override void OnCollision(Actor actor)
+        {
+            base.OnCollision(actor);
+
+            if (actor is Player)
+                Game.SetGameOver(true);
+        }
     } //Goal
 } //Math For Games

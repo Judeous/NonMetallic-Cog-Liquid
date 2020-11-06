@@ -184,10 +184,10 @@ namespace MathForGames
             Scene scene2 = new Scene();
 
             //Create the actors to add to our scene
-            Enemy enemy1 = new Enemy(2, 5, Color.GREEN, new Vector2(0,5), new Vector2(30, 5), '■', ConsoleColor.Green);
+            Enemy enemy1 = new Enemy(2, -5, Color.GREEN, new Vector2(0,5), new Vector2(30, 5), '■', ConsoleColor.Green);
             Enemy enemy2 = new Enemy(10, 10, Color.GREEN, new Vector2(0, 10), new Vector2(30, 10), '■', ConsoleColor.Green);
-            Enemy enemy3 = new Enemy(3, 1, Color.GREEN, new Vector2(0, 20), new Vector2(30, 20), '■', ConsoleColor.Green);
-            Player player = new Player(0, 1, Color.BLUE, '@', ConsoleColor.Red);
+            Enemy enemy3 = new Enemy(.1f, 7, Color.GREEN, new Vector2(0, 20), new Vector2(30, 20), '■', ConsoleColor.Green);
+            Player player = new Player(0, 0, Color.BLUE, '@', ConsoleColor.Red);
             Goal goal = new Goal(11, 16, Color.GREEN, player, 'G', ConsoleColor.Green);
 
             //Initialize the enemies' starting values
@@ -198,7 +198,6 @@ namespace MathForGames
             //Set player's starting speed
             player.Speed = 5;
 
-            player.SetTranslate(new Vector2(10, 10));
             goal.AddChild(enemy1);
             goal.AddChild(enemy2);
             goal.AddChild(enemy3);
@@ -216,10 +215,8 @@ namespace MathForGames
             enemy1.Target = player;
             enemy2.Target = player;
             enemy3.Target = player;
-
             //Sets the starting scene index and adds the scenes to the scenes array
-            int startingSceneIndex = 0;
-            startingSceneIndex = AddScene(scene1);
+            int startingSceneIndex = AddScene(scene1);
             AddScene(scene2);
 
             //Sets the current scene to be the starting scene index

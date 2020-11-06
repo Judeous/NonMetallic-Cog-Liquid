@@ -32,6 +32,8 @@ namespace MathForGames
         protected Matrix3 _rotation = new Matrix3();
         protected Matrix3 _scale = new Matrix3();
 
+        private float _collRadius = .5f;
+
         public bool Started { get; private set; } //Started property
 
         public Vector2 Forward
@@ -188,6 +190,26 @@ namespace MathForGames
         {
             Started = false;
         } //End
+
+        /// <summary>
+        /// Called when a collision is detected by the scene
+        /// </summary>
+        /// <param name="actor">Collided-with Actor</param>
+        /// <returns></returns>
+        public bool CheckCollision(Actor actor)
+        {
+            if(actor._collRadius + _collRadius > (actor.GlobalPosition - GlobalPosition).Magnitude && actor != this)
+            { //If distance between this Actor and the passed in Actor is less than the two radii
+                OnCollision(actor);
+            }
+            return false;
+        } //Check Collision function
+
+        public virtual void OnCollision(Actor actor)
+        {
+            Vector2 direction = GlobalPosition - actor.GlobalPosition;
+            actor.SetTranslate(actor.GlobalPosition + Velocity.Normalized);
+        } //On Collision function
 
         public void SetTranslate(Vector2 position) 
         {

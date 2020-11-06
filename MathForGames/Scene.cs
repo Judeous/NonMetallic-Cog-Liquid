@@ -123,6 +123,8 @@ namespace MathForGames
 
                 _actors[i].Update(deltaTime);
             }
+
+            CheckCollisions();
         } //Update
 
         public virtual void Draw()
@@ -143,5 +145,19 @@ namespace MathForGames
 
             Started = false;
         } //End
+
+        /// <summary>
+        /// Checks to see if any Actor in this scene has collided with another Actor
+        /// </summary>
+        private void CheckCollisions()
+        {
+            for (int i = 0; i < _actors.Length - 1; i++)
+            { //For every Actor
+                for (int j = 0; j < _actors.Length; j++)
+                { //Also for every Actor
+                    _actors[i].CheckCollision(_actors[j]);
+                } //For every Actor
+            } //For every Actor
+        } //Check Collisions function
     } //Scene
 } //Math For Games
