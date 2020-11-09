@@ -10,8 +10,6 @@ namespace MathForGames
     /// <summary>
     /// This is the base class for all objects that will 
     /// be moved or interacted with in the game
-    /// 
-    /// Create new matrices to transform the actors matrix. The user should be able to translate, rotate, and scale the actor.
     /// </summary>
     class Actor
     {
@@ -45,7 +43,7 @@ namespace MathForGames
         public Vector2 LocalPosition
         {
             get { return new Vector2(_localTransform.m13, _localTransform.m23); }
-            set { _translation.m13 = value.X; _translation.m23 = value.Y; }
+            set { SetTranslate(value); }
         } //Position property
 
         public Vector2 GlobalPosition
@@ -126,20 +124,6 @@ namespace MathForGames
             _rayColor = rayColor;
         } //Overload Constructor with Raylib
 
-        /// <summary>
-        /// Updates the actors forward vector to be
-        /// the last direction it moved in
-        /// </summary>
-        private void UpdateFacing() 
-        {
-            if (Velocity.Magnitude <= 0)
-            {
-
-                return;
-            }
-
-        } //Update Facing function
-
         public virtual void Start()
         {
             Started = true;
@@ -207,8 +191,8 @@ namespace MathForGames
 
         public virtual void OnCollision(Actor actor)
         {
-            Vector2 direction = GlobalPosition - actor.GlobalPosition;
-            actor.SetTranslate(actor.GlobalPosition + Velocity.Normalized);
+            Vector2 direction = actor.GlobalPosition - GlobalPosition;
+            actor.SetTranslate(actor.LocalPosition + direction.Normalized);
         } //On Collision function
 
         public void SetTranslate(Vector2 position) 

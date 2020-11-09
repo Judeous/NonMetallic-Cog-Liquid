@@ -47,8 +47,8 @@ namespace MathForGames
 
         public override void Update(float deltaTime)
         {
-            _rotate += .1f;
-            //SetRotation(_rotate);
+            _rotate += .07f;
+            SetRotation(_rotate);
 
             UpdateLocalTransform();
             UpdateGlobalTransform();
