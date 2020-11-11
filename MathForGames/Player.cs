@@ -49,8 +49,14 @@ namespace MathForGames
             if (Game.GetKeyDown((int)KeyboardKey.KEY_UP))
                 SetScale(_scale.m11 + 1, _scale.m22 + 1);
 
-            if (Game.GetKeyDown((int)KeyboardKey.KEY_DOWN))
+            if (Game.GetKeyDown((int)KeyboardKey.KEY_DOWN) && _scale.m11 > 0)
                 SetScale(_scale.m11 - 1, _scale.m22 - 1);
+
+            if (Game.GetKeyDown((int)KeyboardKey.KEY_RIGHT))
+                Speed += 1;
+
+            if (Game.GetKeyDown((int)KeyboardKey.KEY_LEFT) && Speed > 0)
+                Speed -= 1;
 
             //Set the actors current velocity to be the a vector with the direction found scaled by the speed
             Velocity = new Vector2(xDirection, yDirection);

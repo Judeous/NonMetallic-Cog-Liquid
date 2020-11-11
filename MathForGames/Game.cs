@@ -13,6 +13,7 @@ namespace MathForGames
         private static bool _gameOver = false;
         private static Scene[] _scenes;
         private static int _currentSceneIndex;
+
         public static int CurrentSceneIndex
         {
             get { return _currentSceneIndex; }
@@ -171,9 +172,11 @@ namespace MathForGames
         //Called when the game begins. Use this for initialization.
         public void Start()
         {
+            DisplayControls();
+
             //Creates a new window for raylib
             Raylib.InitWindow(1024, 760, "Math For Games");
-            Raylib.SetTargetFPS(10);
+            Raylib.SetTargetFPS(24);
 
             //Set up console window
             Console.CursorVisible = false;
@@ -279,6 +282,28 @@ namespace MathForGames
                 while (Console.KeyAvailable)
                     Console.ReadKey(true);
             } //While game isn't over and Window shouldn't close
+
+            End();
         } //Run
+
+        public void DisplayControls()
+        {
+            Console.WriteLine("Controls:");
+            Console.WriteLine("---------");
+            Console.WriteLine("W: Move Up");
+            Console.WriteLine("S: Move Down");
+            Console.WriteLine("A: Move Left");
+            Console.WriteLine("D: Move Right");
+            Console.WriteLine("");
+            Console.WriteLine("Left Arrow: Slow Down");
+            Console.WriteLine("Right Arrow: Speed Up");
+            Console.WriteLine("");
+            Console.WriteLine("Up Arrow: Scale Up");
+            Console.WriteLine("Down Arrow: Scale Down");
+            Console.WriteLine("");
+            Console.WriteLine("Esc: Exit Game");
+            Console.WriteLine("Press any key to continue . . .");
+            Console.ReadKey();
+        } //Display Controls function
     } //Game
 } //Math For Games

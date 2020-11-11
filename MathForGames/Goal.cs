@@ -63,6 +63,6 @@ namespace MathForGames
 
             if (actor is Player)
                 Game.SetGameOver(true);
-        }
+        } //On Collision override
     } //Goal
 } //Math For Games

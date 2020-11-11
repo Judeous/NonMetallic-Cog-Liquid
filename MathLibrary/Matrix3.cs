@@ -25,20 +25,64 @@ namespace MathLibrary
             this.m31 = m31; this.m32 = m32; this.m33 = m33;
         } //Overload constructor
 
+        /// <summary>
+        /// Creates a new Matrix rotated by the passed in number of radians
+        /// </summary>
+        /// <param name="radians">The number of radians the Matrix will be rotated by</param>
+        /// <returns></returns>
+        public static Matrix3 CreateRotation(float radians)
+        {
+            return new Matrix3(
+                               (float)(Math.Cos(radians)), (float)(Math.Sin(radians)), 0,
+                               (float)(-1 * Math.Sin(radians)), (float)(Math.Cos(radians)), 0, 
+                               0, 0, 1
+                              );
+        } //Create Rotation function
+
+        /// <summary>
+        /// Creates a new Matrix in the position that was passed in
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public static Matrix3 CreateTranslation(Vector2 position)
+        {
+            return new Matrix3(
+                               1, 0, position.X,
+                               0, 1, position.Y,
+                               0, 0, 1
+                              );
+        } //Create Translation function
+
+        /// <summary>
+        /// Creates a new Matrix scaled by the passed in scale
+        /// </summary>
+        /// <param name="scale"></param>
+        /// <returns></returns>
+        public static Matrix3 CreateScale(float xScale, float yScale)
+        {
+            return new Matrix3(
+                               xScale, 0, 0, 
+                               0, yScale, 0,
+                               0, 0, 1
+                              );
+        } //Create Scale function
+
         public static Matrix3 operator +(Matrix3 lhs, Matrix3 rhs)
         {
             return new Matrix3(
-                lhs.m11, +rhs.m11, lhs.m12,
-                lhs.m21, +rhs.m22, lhs.m22,
-                lhs.m31, +rhs.m31, lhs.m32);
+                lhs.m11 + rhs.m11, lhs.m12 + rhs.m12, lhs.m13 + rhs.m13,
+                lhs.m21 + rhs.m21, lhs.m22 + rhs.m22, lhs.m23 + rhs.m23,
+                lhs.m31 + rhs.m31, lhs.m32 + rhs.m32, lhs.m33 + rhs.m33
+                             );
         } //Addition overload
 
         public static Matrix3 operator -(Matrix3 lhs, Matrix3 rhs)
         {
             return new Matrix3(
-                lhs.m11, -rhs.m11, lhs.m12,
-                lhs.m21, -rhs.m22, lhs.m22,
-                lhs.m31, -rhs.m31, lhs.m32);
+                lhs.m11 - rhs.m11, lhs.m12 - rhs.m12, lhs.m13 - rhs.m13,
+                lhs.m21 - rhs.m21, lhs.m22 - rhs.m22, lhs.m23 - rhs.m23,
+                lhs.m31 - rhs.m31, lhs.m32 - rhs.m32, lhs.m33 - rhs.m33
+                              );
         } //Subtraction overload
 
         public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)
