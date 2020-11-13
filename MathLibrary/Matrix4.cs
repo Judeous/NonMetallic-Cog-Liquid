@@ -32,7 +32,28 @@ namespace MathLibrary
         /// </summary>
         /// <param name="radians">The number of radians the Matrix will be rotated by</param>
         /// <returns></returns>
-        public static Matrix4 CreateRotation(float radians)
+
+        public static Matrix4 CreateRotationX(float radians)
+        {
+            return new Matrix4(
+                               1, 0, 0, 0,
+                               0, (float)Math.Cos(radians), (float)Math.Sin(radians), 0,
+                               0, (float)(-1 * Math.Sin(radians)), (float)Math.Cos(radians), 0,
+                               0, 0, 0, 1
+                              );
+        } //Create Rotation function
+
+        public static Matrix4 CreateRotationY(float radians)
+        {
+            return new Matrix4(
+                               (float)(Math.Cos(radians)), 0, (float)(-1 * Math.Sin(radians)), 0,
+                               0, 1, 0, 0,
+                               (float)(-1 * Math.Sin(radians)), 0, (float)(Math.Cos(radians)), 0,
+                               0, 0, 0, 1
+                              );
+        } //Create Rotation function
+
+        public static Matrix4 CreateRotationZ(float radians)
         {
             return new Matrix4(
                                (float)(Math.Cos(radians)), (float)(Math.Sin(radians)), 0, 0,
@@ -58,19 +79,36 @@ namespace MathLibrary
         } //Create Translation function
 
         /// <summary>
-        /// Creates a new Matrix scaled by the passed in scale
+        /// Creates a new Matrix scaled by the passed in scales
         /// </summary>
-        /// <param name="scale"></param>
+        /// <param name="xScale">The scale of the X</param>
+        /// <param name="yScale">The scale of the Y</param>
+        /// <param name="zScale">The scale of the Z</param>
         /// <returns></returns>
-        public static Matrix4 CreateScale(float xScale, float yScale)
+        public static Matrix4 CreateScale(float xScale, float yScale, float zScale)
         {
             return new Matrix4(
                                xScale, 0, 0, 0,
                                0, yScale, 0, 0,
-                               0, 0, 1, 0,
+                               0, 0, zScale, 0,
                                0, 0, 0, 1
                               );
         } //Create Scale function
+
+        /// <summary>
+        /// Creates a new Matrix scaled by the passed in scale
+        /// </summary>
+        /// <param name="scale">The scale</param>
+        /// <returns></returns>
+        public static Matrix4 CreateScale(float scale)
+        {
+            return new Matrix4(
+                               scale, 0, 0, 0,
+                               0, scale, 0, 0,
+                               0, 0, scale, 0,
+                               0, 0, 0, 1
+                              );
+        } //Create Scale overload for universal scale
 
         public static Matrix4 operator +(Matrix4 lhs, Matrix4 rhs)
         {

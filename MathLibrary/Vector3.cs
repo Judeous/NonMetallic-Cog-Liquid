@@ -73,7 +73,21 @@ namespace MathLibrary
         public static float DotProduct(Vector3 lhs, Vector3 rhs)
         {
             return (lhs.X * rhs.X) + (lhs.Y * rhs.Y) + (lhs.Z * rhs.Z);
-        } //Dor Product function
+        } //Dot Product function
+
+        public static Vector3 CrossProduct(Vector3 lhs, Vector3 rhs)
+        {
+            return new Vector3(lhs.Y * rhs.Z - rhs.Z * rhs.Y, lhs.Z* rhs.X - lhs.X * rhs.Z, lhs.X* rhs.Y - lhs.Y * rhs.X);
+        } //Cross Product function
+
+        public static Vector3 operator *(Matrix3 lhs, Vector3 rhs)
+        {
+            return new Vector3(
+                rhs.X * lhs.m11 + rhs.Y * lhs.m12 + rhs.Z * lhs.m13,
+                rhs.X * lhs.m21 + rhs.Y * lhs.m22 + rhs.Z * lhs.m23,
+                rhs.X * lhs.m31 + rhs.Y * lhs.m32 + rhs.Z * lhs.m33
+                              );
+        } //Multiplication overload for Matrix3
 
         public static Vector3 operator +(Vector3 lhs, Vector3 rhs)
         {
@@ -86,6 +100,11 @@ namespace MathLibrary
         } //Subtraction overload
 
         public static Vector3 operator *(Vector3 lhs, float scalar)
+        {
+            return new Vector3(lhs.X * scalar, lhs.Y * scalar, lhs.Z * scalar);
+        } //Multiplication overload
+
+        public static Vector3 operator *(float scalar, Vector3 lhs)
         {
             return new Vector3(lhs.X * scalar, lhs.Y * scalar, lhs.Z * scalar);
         } //Multiplication overload

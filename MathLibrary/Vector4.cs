@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MathLibrary
 {
-    class Vector4
+    public class Vector4
     {
         private float _x;
         private float _y;
@@ -84,6 +84,21 @@ namespace MathLibrary
             return (lhs.X * rhs.X) + (lhs.Y * rhs.Y) + (lhs.Z * rhs.Z) + (lhs.W * rhs.W);
         } //Dor Product function
 
+        public static Vector4 CrossProduct(Vector4 lhs, Vector4 rhs)
+        {
+            return new Vector4();
+        } //Cross Product function
+
+        public static Vector4 operator *(Matrix4 lhs, Vector4 rhs)
+        {
+            return new Vector4(
+                rhs.X * lhs.m11 + rhs.Y * lhs.m12 + rhs.Z * lhs.m13 + rhs.W * lhs.m14,
+                rhs.X * lhs.m21 + rhs.Y * lhs.m22 + rhs.Z * lhs.m23 + rhs.W * lhs.m24,
+                rhs.X * lhs.m31 + rhs.Y * lhs.m32 + rhs.Z * lhs.m33 + rhs.W * lhs.m34,
+                rhs.X * lhs.m41 + rhs.Y * lhs.m42 + rhs.Z * lhs.m43 + rhs.W * lhs.m44
+                              );
+        } //Multiplication overload for Matrix4
+
         public static Vector4 operator +(Vector4 lhs, Vector4 rhs)
         {
             return new Vector4(lhs.X += rhs.X, lhs.Y += rhs.Y, lhs.Z += rhs.Z, lhs.W += rhs.W);
@@ -95,6 +110,11 @@ namespace MathLibrary
         } //Subtraction overload
 
         public static Vector4 operator *(Vector4 lhs, float scalar)
+        {
+            return new Vector4(lhs.X * scalar, lhs.Y * scalar, lhs.Z * scalar, lhs.W * scalar);
+        } //Multiplication overload
+
+        public static Vector4 operator *(float scalar, Vector4 lhs)
         {
             return new Vector4(lhs.X * scalar, lhs.Y * scalar, lhs.Z * scalar, lhs.W * scalar);
         } //Multiplication overload

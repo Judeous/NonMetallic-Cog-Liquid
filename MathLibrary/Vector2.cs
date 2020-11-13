@@ -79,6 +79,11 @@ namespace MathLibrary
             return new Vector2(lhs.X * scalar, lhs.Y * scalar);
         } //Multiplication overload
 
+        public static Vector2 operator *(float scalar, Vector2 lhs)
+        {
+            return new Vector2(lhs.X * scalar, lhs.Y * scalar);
+        } //Multiplication overload
+
         public static Vector2 operator /(Vector2 lhs, float scalar)
         {
             return new Vector2(lhs.X / scalar, lhs.Y / scalar);
