@@ -14,7 +14,7 @@ namespace MathForGames
         public Bee(float x, float y, Color rayColor, char icon = ' ', ConsoleColor color = ConsoleColor.White)
             : base(x, y, rayColor, icon, color)
         {
-            _sprite = new Sprite("Images/player.png");
+            _sprite = new Sprite("Images/Bee.png");
         }
 
 

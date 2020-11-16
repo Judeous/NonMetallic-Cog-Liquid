@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MathLibrary\MathLibrary.csproj" />
+    <ProjectReference Include="..\UnitTestProject\UnitTestProject.csproj" />
   </ItemGroup>
 
 </Project>

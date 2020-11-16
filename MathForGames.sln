@@ -11,6 +11,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathLibrary", "MathLibrary\MathLibrary.csproj", "{5AC9C938-F2F8-4FD7-B0D5-76175F10F21B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathForGames3D", "MathForGames3D\MathForGames3D.csproj", "{C7F9DEF9-FF70-4FC0-AAF2-E6F9BB49683B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2731BE78-C467-4E92-9381-4F6B9EA68963} = {2731BE78-C467-4E92-9381-4F6B9EA68963}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{2731BE78-C467-4E92-9381-4F6B9EA68963}"
 EndProject

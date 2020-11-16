@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MathLibrary
 {
@@ -86,17 +84,19 @@ namespace MathLibrary
 
         public static Vector4 CrossProduct(Vector4 lhs, Vector4 rhs)
         {
-            return new Vector4();
+            return new Vector4(lhs.Y * rhs.Z - lhs.Z * rhs.Y, //X
+                               lhs.Z * rhs.X - lhs.X * rhs.Z, //Y
+                               lhs.X * rhs.Y - lhs.Y * rhs.X, //Z
+                               0);
         } //Cross Product function
 
         public static Vector4 operator *(Matrix4 lhs, Vector4 rhs)
         {
             return new Vector4(
-                rhs.X * lhs.m11 + rhs.Y * lhs.m12 + rhs.Z * lhs.m13 + rhs.W * lhs.m14,
-                rhs.X * lhs.m21 + rhs.Y * lhs.m22 + rhs.Z * lhs.m23 + rhs.W * lhs.m24,
-                rhs.X * lhs.m31 + rhs.Y * lhs.m32 + rhs.Z * lhs.m33 + rhs.W * lhs.m34,
-                rhs.X * lhs.m41 + rhs.Y * lhs.m42 + rhs.Z * lhs.m43 + rhs.W * lhs.m44
-                              );
+                (rhs.X * lhs.m11) + (rhs.Y * lhs.m12) + (rhs.Z * lhs.m13) + (rhs.W * lhs.m14),
+                (rhs.X * lhs.m21) + (rhs.Y * lhs.m22) + (rhs.Z * lhs.m23) + (rhs.W * lhs.m24),
+                (rhs.X * lhs.m31) + (rhs.Y * lhs.m32) + (rhs.Z * lhs.m33) + (rhs.W * lhs.m34),
+                (rhs.X * lhs.m41) + (rhs.Y * lhs.m42) + (rhs.Z * lhs.m43) + (rhs.W * lhs.m44));
         } //Multiplication overload for Matrix4
 
         public static Vector4 operator +(Vector4 lhs, Vector4 rhs)

@@ -125,8 +125,6 @@ namespace MathForGames3D
 
         public virtual void Update(float deltaTime)
         {
-            if (Velocity.Magnitude != 0)
-                SetRotation(-(float)Math.Atan2(Velocity.Y, Velocity.X));
 
             UpdateLocalTransform();
             UpdateGlobalTransform();
@@ -192,14 +190,24 @@ namespace MathForGames3D
             _translation = Matrix4.CreateTranslation(position);
         } //Set Translate function
 
-        public void SetRotation(float radians)
+        public void SetRotationX(float radians)
         {
-            _rotation = Matrix4.CreateRotation(radians);
+            _rotation = Matrix4.CreateRotationX(radians);
         } //Set Rotation function
 
-        public void SetScale(float x, float y)
+        public void SetRotationY(float radians)
         {
-            _scale = Matrix4.CreateScale(x, y);
+            _rotation = Matrix4.CreateRotationY(radians);
+        } //Set Rotation function
+
+        public void SetRotationZ(float radians)
+        {
+            _rotation = Matrix4.CreateRotationZ(radians);
+        } //Set Rotation function
+
+        public void SetScale(float x, float y, float z)
+        {
+            _scale = Matrix4.CreateScale(x, y, z);
         } //Set Scale function
 
         public void UpdateLocalTransform()
@@ -214,5 +222,5 @@ namespace MathForGames3D
             else
                 _globalTransform = Game.GetCurrentScene().World * _localTransform;
         } //Update Global Transform
-    } //Set Rotation
+    } //Actor
 } //Math For Games 3D

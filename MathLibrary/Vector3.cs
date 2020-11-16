@@ -77,7 +77,9 @@ namespace MathLibrary
 
         public static Vector3 CrossProduct(Vector3 lhs, Vector3 rhs)
         {
-            return new Vector3(lhs.Y * rhs.Z - rhs.Z * rhs.Y, lhs.Z* rhs.X - lhs.X * rhs.Z, lhs.X* rhs.Y - lhs.Y * rhs.X);
+            return new Vector3(lhs.Y * rhs.Z - lhs.Z * rhs.Y, //X
+                               lhs.Z * rhs.X - lhs.X * rhs.Z, //Y
+                               lhs.X * rhs.Y - lhs.Y * rhs.X);//Z
         } //Cross Product function
 
         public static Vector3 operator *(Matrix3 lhs, Vector3 rhs)
@@ -85,8 +87,7 @@ namespace MathLibrary
             return new Vector3(
                 rhs.X * lhs.m11 + rhs.Y * lhs.m12 + rhs.Z * lhs.m13,
                 rhs.X * lhs.m21 + rhs.Y * lhs.m22 + rhs.Z * lhs.m23,
-                rhs.X * lhs.m31 + rhs.Y * lhs.m32 + rhs.Z * lhs.m33
-                              );
+                rhs.X * lhs.m31 + rhs.Y * lhs.m32 + rhs.Z * lhs.m33);
         } //Multiplication overload for Matrix3
 
         public static Vector3 operator +(Vector3 lhs, Vector3 rhs)
